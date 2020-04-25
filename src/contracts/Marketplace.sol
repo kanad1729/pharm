@@ -24,7 +24,11 @@ contract Marketplace{
         string drugName;
         uint price;
         string remark;
-        address payable owner;
+        // address payable owner;
+        string content;
+        string mnfDate;
+        string expDate;
+
     }
 
     event DrugCreated(
@@ -34,7 +38,10 @@ contract Marketplace{
         string drugName,
         uint price,
         string remark,
-        address payable owner
+        // address payable owner,
+        string content,
+        string mnfDate,
+        string expDate
     );
 
      event DrugDataPosted(
@@ -44,7 +51,10 @@ contract Marketplace{
         string drugName,
         uint price,
         string remark,
-        address payable owner
+        // address payable owner,
+        string content,
+        string mnfDate,
+        string expDate
     );
 
         
@@ -70,7 +80,7 @@ contract Marketplace{
         name = "kanad";
     }
 
-    function createDrug(string memory _role, string memory _name, uint _price, string memory _remark)public{
+    function createDrug(string memory _role, string memory _name, uint _price, string memory _remark, string memory _content, string memory _mnfDate, string memory _expDate) public{
 
         //name validation
         require(bytes(_name).length > 0, "Drug must has a name.");
@@ -78,10 +88,10 @@ contract Marketplace{
         drugCount++;
 
          //create the product
-         drugs[drugCount] = Drug(drugCount, _role, _name, _price, _remark, msg.sender);
+         drugs[drugCount] = Drug(drugCount, _role, _name, _price, _remark, _content, _mnfDate, _expDate);
 
          //trigger an event to notify the product is created
-         emit DrugCreated(drugCount, _role, _name, _price, _remark, msg.sender);
+         emit DrugCreated(drugCount, _role, _name, _price, _remark, _content, _mnfDate, _expDate);
 
 
     }
@@ -89,11 +99,10 @@ contract Marketplace{
     function postDrugData(uint _id) public {
 
         Drug memory _drug = drugs[_id];
-        _drug.owner = msg.sender;
-
+        
         drugs[_id] = _drug;
 
-        emit DrugDataPosted(drugCount, _drug.role, _drug.drugName, _drug.price, _drug.remark, msg.sender);
+        emit DrugDataPosted(drugCount, _drug.role, _drug.drugName, _drug.price, _drug.remark, _drug.content, _drug.mnfDate, _drug.expDate);
 
 
     }

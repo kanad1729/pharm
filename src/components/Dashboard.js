@@ -129,9 +129,9 @@ class DashboardPage extends Component {
 
   // }
 
-  createDrug(role, name, price, remark){
+  createDrug(role, name, price, remark, content, mnfDate, expDate){
     this.setState({ loading: true })
-    this.state.marketplace.methods.createDrug(role, name, price, remark).send({ from: this.state.account }).once('receipt', (receipt)=>{
+    this.state.marketplace.methods.createDrug(role, name, price, remark, content, mnfDate, expDate).send({ from: this.state.account }).once('receipt', (receipt)=>{
      this.setState({ loading: false })
     })
 

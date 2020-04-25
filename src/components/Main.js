@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import Web3 from 'web3';
-import Marketplace from '../abis/Marketplace.json';
-import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -11,9 +8,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
+
 
 class Main extends Component {
 
@@ -44,8 +40,11 @@ class Main extends Component {
                         const name = this.productName.value //stroring fetched inp value into name var and same thing is below
                         const price = window.web3.utils.toWei(this.productPrice.value.toString(), 'Ether')
                         const remark = this.productRemark.value
+                        const content = this.productContent.value
+                        const mnfDate = this.productMnfDate.value
+                        const expDate = this.productExpDate.value 
 
-                        this.props.createDrug(role, name, price, remark)
+                        this.props.createDrug(role, name, price, remark, content, mnfDate, expDate)
 
                     }}>
 
@@ -55,7 +54,7 @@ class Main extends Component {
                             type="text"
                             ref={(input) => { this.publisherRole = input }} //this is to fetch input from inp field
                             className="form-control"
-                            placeholder="Role"
+                            placeholder="Enter User Role"
                             required />
                         </div>
 
@@ -66,7 +65,7 @@ class Main extends Component {
                             type="text"
                             ref={(input) => { this.productName = input }} //this is to fetch input from inp field
                             className="form-control"
-                            placeholder="Product Name"
+                            placeholder="Enter Product Name"
                             required />
                         </div>
                         <div className="form-group mr-sm-2">
@@ -75,7 +74,7 @@ class Main extends Component {
                             type="text"
                             ref={(input) => { this.productPrice = input }}
                             className="form-control"
-                            placeholder="Product Price"
+                            placeholder="Enter Product Price"
                             required />
                         </div>
 
@@ -85,9 +84,40 @@ class Main extends Component {
                             type="text"
                             ref={(input) => { this.productRemark = input }} //this is to fetch input from inp field
                             className="form-control"
-                            placeholder="Remark"
+                            placeholder="Enter Product Remark"
                             required />
                         </div>
+
+                        <div className="form-group mr-sm-2">
+                            <input
+                            id="productName"
+                            type="text"
+                            ref={(input) => { this.productContent = input }} //this is to fetch input from inp field
+                            className="form-control"
+                            placeholder="Enter Product Contents"
+                            required />
+                        </div>
+
+                        <div className="form-group mr-sm-2">
+                            <input
+                            id="productName"
+                            type="text"
+                            ref={(input) => { this.productMnfDate = input }} //this is to fetch input from inp field
+                            className="form-control"
+                            placeholder="Enter Manuf. Date(DD-MM-YYYY)"
+                            required />
+                        </div>
+
+                        <div className="form-group mr-sm-2">
+                            <input
+                            id="productName"
+                            type="text"
+                            ref={(input) => { this.productExpDate = input }} //this is to fetch input from inp field
+                            className="form-control"
+                            placeholder="Enter Exp Date(DD-MM-YYYY)"
+                            required />
+                        </div>
+
                         <Button  type="submit" variant="contained" color="primary" onClick={() => {window.confirm('Please check data before uploading...')}} >
                           Add Product
                           </Button>
@@ -105,9 +135,13 @@ class Main extends Component {
                     <TableCell style={{color:"#ffffff"}}>Role</TableCell>
                     <TableCell style={{color:"#ffffff"}}>Name</TableCell>
                     <TableCell style={{color:"#ffffff"}}>Price</TableCell>
+                    <TableCell style={{color:"#ffffff"}}>Contents</TableCell>
+                    <TableCell style={{color:"#ffffff"}}>Manf. Date</TableCell>
+                    <TableCell style={{color:"#ffffff"}}>Exp. Date</TableCell>
                     <TableCell style={{color:"#ffffff"}}>Remark</TableCell>
-                    <TableCell style={{color:"#ffffff"}}>Timestamp</TableCell>
-                    <TableCell style={{color:"#ffffff"}}>Owner</TableCell>
+        
+                    {/* <TableCell style={{color:"#ffffff"}}>Timestamp</TableCell> */}
+                    
                     
                   </TableRow>
                 </TableHead>
@@ -120,10 +154,12 @@ class Main extends Component {
                           <TableCell align='justify' scope="row">{drug.id.toString()}</TableCell>
                           <TableCell align='justify'>{drug.role} </TableCell>
                           <TableCell align='justify'>{drug.drugName}</TableCell>
-                          <TableCell align='justify'>{window.web3.utils.fromWei(drug.price.toString(), 'Ether')} Eth</TableCell>
+                          <TableCell align='justify'>{window.web3.utils.fromWei(drug.price.toString(), 'Ether')} Rs.</TableCell>
+                          <TableCell align='justify'>{drug.content}</TableCell>
+                          <TableCell align='justify'>{drug.mnfDate}</TableCell>
+                          <TableCell align='justify'>{drug.expDate}</TableCell>
                           <TableCell align='justify'>{drug.remark}</TableCell>
-                          <TableCell align='justify'>{date+","+time}</TableCell>
-                          <TableCell align='justify'>{drug.owner}</TableCell>
+                          {/* <TableCell align='justify'>{date+","+time}</TableCell> */}
                       </TableRow>
                       
                       )

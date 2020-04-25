@@ -124,7 +124,7 @@ class MainUser extends Component {
                 type="text"
                 ref={(input) => { this.did = input }} //this is to fetch input from inp field
                 className="form-control"
-                placeholder="Enter Product ID"
+                placeholder="Enter Product Name"
                 required />
             </div>
 
@@ -141,9 +141,12 @@ class MainUser extends Component {
     <TableHead >
       <TableRow style={{backgroundColor:"#2c003e"}}  >
         {/* <TableCell style={{color:"#ffffff"}}>#</TableCell> */}
-        <TableCell style={{color:"#ffffff"}}>Name</TableCell>
         <TableCell style={{color:"#ffffff"}}>Role</TableCell>
+        <TableCell style={{color:"#ffffff"}}>Name</TableCell>
         <TableCell style={{color:"#ffffff"}}>Price</TableCell>
+        <TableCell style={{color:"#ffffff"}}>Contents</TableCell>
+        <TableCell style={{color:"#ffffff"}}>Manf. Date</TableCell>
+        <TableCell style={{color:"#ffffff"}}>Exp. Date</TableCell>
         <TableCell style={{color:"#ffffff"}}>Remark</TableCell>
         {/* <TableCell style={{color:"#ffffff"}}>Timestamp</TableCell>
         <TableCell style={{color:"#ffffff"}}>Owner</TableCell> */}
@@ -156,9 +159,13 @@ class MainUser extends Component {
           return(
 
             <TableRow key={key}>
+               <TableCell align='justify'>{sdrug.role} </TableCell>
               <TableCell align='justify' scope="row">{sdrug.drugName}</TableCell>
-              <TableCell align='justify'>{sdrug.role} </TableCell>
-              <TableCell align='justify'>{window.web3.utils.fromWei(sdrug.price.toString(), 'Ether')} Eth</TableCell>
+             
+              <TableCell align='justify'>{window.web3.utils.fromWei(sdrug.price.toString(), 'Ether')} Rs.</TableCell>
+              <TableCell align='justify'>{sdrug.content} </TableCell>
+              <TableCell align='justify'>{sdrug.mnfDate} </TableCell>
+              <TableCell align='justify'>{sdrug.expDate} </TableCell>
               <TableCell align='justify'>{sdrug.remark}</TableCell>
               {/* <TableCell align="right">{drug.remark}</TableCell>
               <TableCell align="right">{date+","+time}</TableCell>
